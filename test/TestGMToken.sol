@@ -4,22 +4,15 @@ import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/GMToken.sol";
 
-contract TestMetacoin {
+contract TestGMToken {
 
   function testInitialBalanceUsingDeployedContract() {
-    MetaCoin meta = MetaCoin(DeployedAddresses.MetaCoin());
+    GMToken gmtoken = GMToken(DeployedAddresses.GMToken());
 
-    uint expected = 10000;
+    Assert.equal(gmtoken.hasToken(), false, "We shouldn't yet have an address");
 
-    Assert.equal(meta.getBalance(tx.origin), expected, "Owner should have 10000 MetaCoin initially");
+    gmtoken.newGM("ADisney", 1);
+
+    Assert.equal(gmtoken.hasToken(), true, "We should have a token after creating one.");
   }
-
-  function testInitialBalanceWithNewMetaCoin() {
-    MetaCoin meta = new MetaCoin();
-
-    uint expected = 10000;
-
-    Assert.equal(meta.getBalance(tx.origin), expected, "Owner should have 10000 MetaCoin initially");
-  }
-
 }
