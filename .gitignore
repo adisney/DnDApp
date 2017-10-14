@@ -2,3 +2,5 @@ build/*
 node_modules/*
 lite-server.log
 testrpc.log
+data/*
+src/data

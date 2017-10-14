@@ -40,12 +40,43 @@
         </div>
         <button class='button btn btn-primary gm-submit' value='' name=''>Submit</button>
       </div>
+
       <div class='row chronicle-register'>
-        <div class='form-group'>
-          <label for='scenario'>Scenario</label>
-          <input placeholder='Scenario' type='text' id='scenario' name='' class='form-control' />
+        <form class='form-horizontal'>
+          <div class='form-group'>
+            <label for='scenario'>Scenario</label>
+            <input placeholder='Scenario' type='text' id='scenario' name='' class='form-control' />
+          </div>
+          <div class='form-group'>
+            <label for='xp'>XP Gained</label>
+            <input type='number' id='xp' name='' class='form-control' />
+          </div>
+          <div class='form-group'>
+            <label for='fame'>Fame Gained</label>
+            <input type='number' id='fame' name='' class='form-control' />
+          </div>
+          <div class='form-group'>
+            <label for='gp-scenario'>GP Gained</label>
+            <input type='number' id='gp-scenario' name='' class='form-control' />
+          </div>
+          <div class='form-group'>
+            <label for='gp-day-job'>GP Day Job</label>
+            <input type='number' id='gp-day-job' name='' class='form-control' />
+          </div>
+          <div class='form-group'>
+            <label for='gp-day-job'>Player Tier</label>
+            <input type='number' id='gp-day-job' name='' class='form-control' />
+          </div>
+          <div class='form-group'>
+            <label for='boon'>Boons Awarded</label>
+            <input type='number' id='boon' name='' class='form-control' />
+          </div>
+          <button class='button btn btn-primary chronicle-submit' value='' name=''>Submit</button>
         </div>
-        <button class='button btn btn-primary chronicle-submit' value='' name=''>Submit</button>
+      </form>
+
+      <div class='no-contract'>
+        <h1>The Chronicle Token contract does not exist on your current chain.</h1>
       </div>
     </div>
 
