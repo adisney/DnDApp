@@ -37,4 +37,16 @@ contract TestGMToken {
 
        Assert.equal(gmtoken.getID(), id, "The name on my token should match what was passed in");
   }
+
+    function testDeleteWorks() {
+       GMToken gmtoken = new GMToken();
+       int32 id = 1;
+       gmtoken.newGM("ADisney", id);
+
+       Assert.equal(gmtoken.getID(), id, "The name on my token should match what was passed in");
+
+       gmtoken.deleteMyself();
+
+       Assert.equal(gmtoken.hasToken(), false, "After I delete myself, it shouldn't already have my token");
+  }
 }
