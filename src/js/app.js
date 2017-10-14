@@ -69,6 +69,10 @@ $(function() {
       App.contracts.GMToken.deployed().then(function(instance) {
         App.GMToken = instance;
         App.displayView();
+      })
+      .catch(function(err) {
+        console.log(err);
+        $('.container').append($('.templates .no-contract').clone())
       });
     });
   });
