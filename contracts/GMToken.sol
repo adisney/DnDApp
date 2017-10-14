@@ -11,7 +11,7 @@ contract GMToken {
 
     function newGM(string name, int32 id) {
     require(GMs[tx.origin].id == 0);
-    GMs[beneficiary] = GM(name, id);
+    GMs[tx.origin] = GM(name, id);
     }
 
     function hasToken() returns (bool) {
