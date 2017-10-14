@@ -11,6 +11,7 @@ contract GMToken {
 
     function newGM(string name, int32 id) public {
     require(GMs[tx.origin].id == 0);
+    require(id > 0);
     GMs[tx.origin] = GM(name, id);
     }
 
