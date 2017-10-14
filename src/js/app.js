@@ -27,36 +27,15 @@ App = {
 
       App.contracts.GMToken.setProvider(App.web3Provider);
     });
-    return App.bindEvents();
-  },
-
-  bindEvents: function() {
-  },
-
-  createGMToken: function() {
-    form = $('.container .gm-register');
-    return App.GMToken.newGM(form.find(".gm-name").val(), parseInt(form.find(".gm-id").val()))
-      .then(function(res) {
-        console.log("Created token id is: " + JSON.stringify(res));
-    });
   },
 
   displayView: function() {
     App.GMToken.hasToken.call().then(function(res) {
       if (res) {
-        form = $(".templates .chronicle-register").clone();
-        $('.container').append(form);
+        ChronicleView.displayView();
       } else {
-        form = $(".templates .gm-register").clone();
-        $('.container').append(form);
-        $('.container .gm-submit').click(function() {
-          App.createGMToken().then(function() {
-            $('.container .gm-register').remove();
-            form = $(".templates .chronicle-register").clone();
-            $('.container').append(form);
-          });
-        });
-        }
+        GMTokenView.displayView(App.GMToken);
+      }
     }).catch(function(err) {
       //noop
     });

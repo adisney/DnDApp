@@ -1,0 +1,17 @@
+[
+  {
+    "title":"the_fabric_of_reality",
+    "boons": [ "tapestry_fast_travel" ],
+    "items_found":  {
+                      "subtier_5_6":[ "amulet of natural armor +1 (2,000 gp)", "bracers of armor +2 (4,000 gp)", "cloak of resistance +1 (1,000 pg)", "elemental gem (air) (2,250 gp)", "potion of cure moderate wounds (300 pg)", "potion of cure serious wounds (750 gp)", "ring of protection +1 (2,000 gp)", "wand of false life (6 charges; 450 gp, limit 1)", "wand of mage armor (30 charges; 450 gp, limit 1)", "wand of spontaneous immolation (15 charges; 1,350 gp, limit 1; Ultimate Combat 245)" ],
+                      "subtier_8_9": [ "ki mat (10,000 gp; Advanced Player's Guide 306)", "cloak of resistance +2 (4,000 gp)", "headband of alluring charisma +2 (4,000 gp)", "headband of inspired widsom +2 (4,000 gp)", "potion of bear's endurance (CL 6th; 600 gp, limit 1)", "wand of false life (CL 10th, 8 charges; 2,400 gp, limit 1)" ]
+
+                    },
+    "max_gold": {
+                  "subtier_5_6_slow": "1,256",
+                  "subtier_5_6_fast": "2,512",
+                  "subtier_8_9_slow": "2,793",
+                  "subtier_8_9_fast": "5,587"
+                }
+  }
+]
