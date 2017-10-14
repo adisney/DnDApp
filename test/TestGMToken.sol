@@ -59,35 +59,43 @@ contract TestGMToken {
   address testPlayerOne = 0xf6b0ed6c362b3dd9c4eb334b828ff7dff89f4d8c;
 
   function testAddOneChronicle() {
-       GMToken gmtoken = new GMToken();
-       uint id = 1;
-       gmtoken.newGM("ADisney", id);
+      GMToken gmtoken = new GMToken();
+      uint id = 1;
+      gmtoken.newGM("ADisney", id);
 
-       bytes32 verifyChronicle = stringToBytes32("ThisIsChronicleOne");
+      bytes32 verifyChronicle = stringToBytes32("ThisIsChronicleOne");
 
-       gmtoken.addChronicle(verifyChronicle, testPlayerOne);
+      gmtoken.addChronicle(verifyChronicle, testPlayerOne);
 
 
-       uint numChronicles = gmtoken.getNumChronicles(testPlayerOne);
-       bytes32 chronicle = gmtoken.getChronicleForPlayerAt(testPlayerOne, 0);
+      uint numChronicles = gmtoken.getNumChronicles(testPlayerOne);
+      bytes32 chronicle = gmtoken.getChronicleForPlayerAt(testPlayerOne, 0);
 
-       Assert.equal(numChronicles, 1, "We should have one chronicle");
-       
+      Assert.equal(numChronicles, 1, "We should have one chronicle");
+      
 
-       for (uint i = 0; i < chronicle.length; i++)
-       {
-         if (chronicle[i] != verifyChronicle[i])
-         {
-           Assert.fail("The string wasn't persisted correctly");
-         }
-       }
+      for (uint i = 0; i < chronicle.length; i++)
+      {
+        if (chronicle[i] != verifyChronicle[i])
+        {
+          Assert.fail("The string wasn't persisted correctly");
+        }
+      }
   }
 
-    function testAddOneChronicleNoTokenFails() {
-       GMToken gmtoken = new GMToken();
+    function testUserHasNoTokensIntially() {
+      GMToken gmtoken = new GMToken();
 
-       bytes32 verifyChronicle = stringToBytes32("ThisIsChronicleOne");
+      uint numChronicles = gmtoken.getNumChronicles(testPlayerOne);
 
-       gmtoken.addChronicle(verifyChronicle, testPlayerOne);
+      Assert.equal(numChronicles, 0, "We should have no chronicle");
+  }
+
+  function testAddOneChronicleNoTokenFails() {
+    GMToken gmtoken = new GMToken();
+
+      bytes32 verifyChronicle = stringToBytes32("ThisIsChronicleOne");
+
+      gmtoken.addChronicle(verifyChronicle, testPlayerOne);
   }
 }
