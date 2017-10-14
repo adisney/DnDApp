@@ -41,22 +41,24 @@ App = {
     });
   },
 
-  isUserGM: function() {
-    App.GMToken.getIsValue.call().then(function(res) {
+  displayView: function() {
+    App.GMToken.hasToken.call().then(function(res) {
       if (res) {
         form = $(".templates .chronicle-register").clone();
         $('.container').append(form);
-      }
-    }).catch(function(err) {
-      form = $(".templates .gm-register").clone();
-      $('.container').append(form);
-      $('.container .gm-submit').click(function() {
-        App.createGMToken().then(function() {
-          $('.container .gm-register').remove();
-          form = $(".templates .chronicle-register").clone();
-          $('.container').append(form);
+      } else {
+        form = $(".templates .gm-register").clone();
+        $('.container').append(form);
+        $('.container .gm-submit').click(function() {
+          App.createGMToken().then(function() {
+            $('.container .gm-register').remove();
+            form = $(".templates .chronicle-register").clone();
+            $('.container').append(form);
+          });
         });
-      });
+        }
+    }).catch(function(err) {
+      //noop
     });
   },
 };
@@ -66,7 +68,7 @@ $(function() {
     App.init().then(function() {
       App.contracts.GMToken.deployed().then(function(instance) {
         App.GMToken = instance;
-        App.isUserGM();
+        App.displayView();
       });
     });
   });
