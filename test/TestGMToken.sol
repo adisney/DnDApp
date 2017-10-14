@@ -32,7 +32,7 @@ contract TestGMToken {
 
   function testGMTokenHasMyID() {
        GMToken gmtoken = new GMToken();
-       int32 id = 1;
+       uint id = 1;
        gmtoken.newGM("ADisney", id);
 
        Assert.equal(gmtoken.getID(), id, "The name on my token should match what was passed in");
@@ -40,7 +40,7 @@ contract TestGMToken {
 
     function testDeleteWorks() {
        GMToken gmtoken = new GMToken();
-       int32 id = 1;
+       uint id = 1;
        gmtoken.newGM("ADisney", id);
 
        Assert.equal(gmtoken.getID(), id, "The name on my token should match what was passed in");
@@ -48,5 +48,46 @@ contract TestGMToken {
        gmtoken.deleteMyself();
 
        Assert.equal(gmtoken.hasToken(), false, "After I delete myself, it shouldn't already have my token");
+  }
+
+  function stringToBytes32(string memory source) returns (bytes32 result) {
+    assembly {
+        result := mload(add(source, 32))
+    }
+}
+
+  address testPlayerOne = 0xf6b0ed6c362b3dd9c4eb334b828ff7dff89f4d8c;
+
+  function testAddOneChronicle() {
+       GMToken gmtoken = new GMToken();
+       uint id = 1;
+       gmtoken.newGM("ADisney", id);
+
+       bytes32 verifyChronicle = stringToBytes32("ThisIsChronicleOne");
+
+       gmtoken.addChronicle(verifyChronicle, testPlayerOne);
+
+
+       uint numChronicles = gmtoken.getNumChronicles(testPlayerOne);
+       bytes32 chronicle = gmtoken.getChronicleForPlayerAt(testPlayerOne, 0);
+
+       Assert.equal(numChronicles, 1, "We should have one chronicle");
+       
+
+       for (uint i = 0; i < chronicle.length; i++)
+       {
+         if (chronicle[i] != verifyChronicle[i])
+         {
+           Assert.fail("The string wasn't persisted correctly");
+         }
+       }
+  }
+
+    function testAddOneChronicleNoTokenFails() {
+       GMToken gmtoken = new GMToken();
+
+       bytes32 verifyChronicle = stringToBytes32("ThisIsChronicleOne");
+
+       gmtoken.addChronicle(verifyChronicle, testPlayerOne);
   }
 }
