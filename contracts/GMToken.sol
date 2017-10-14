@@ -14,39 +14,67 @@ contract GMToken
 
     function newGM(string name, uint id) public returns(uint) 
     {
-        GMs[tx.origin] = GM(name, id, true);
+        GMs[msg.sender] = GM(name, id, true);
         return id;
     }
 
     function deleteMyself() public
     {
-        GMs[tx.origin] = GM("", 0, false);
+        GMs[msg.sender] = GM("", 0, false);
     }
 
-    function hasToken() public returns (bool) 
+  modifier onlyIfValid()
     {
-        GM storage gm = GMs[tx.origin];
+        require(hasToken());
+        _;
+    }
+
+    function hasToken() public view returns (bool) 
+    {
+        GM storage gm = GMs[msg.sender];
         return gm.isValue;
     }
 
-    function getName() public returns (string) 
+    function getName() public view onlyIfValid() returns (string) 
     {
-        GM storage gm = GMs[tx.origin];
-        require(gm.id != 0);
+        GM storage gm = GMs[msg.sender];
         return gm.name;
     }
 
-    function getID() public returns (uint)
+    function getID() public view onlyIfValid() returns (uint)
     {
-        GM storage gm = GMs[tx.origin];
+        GM storage gm = GMs[msg.sender];
         require(gm.id != 0);
         return gm.id;
     }
 
-    function getIsValue() public returns (bool)
+    function getIsValue() public view onlyIfValid() returns (bool)
     {
-        GM storage gm = GMs[tx.origin];
+        GM storage gm = GMs[msg.sender];
         require(gm.id != 0);
         return gm.isValue;
+    }
+
+
+    // Start Chronicle section
+
+
+    // TODO: This is max path length, update when we figure out what our real path limit is.
+    mapping (address => bytes32[]) chronicles; 
+
+    function getNumChronicles(address player) public view returns(uint)
+    {
+        return chronicles[player].length;
+    }
+
+    function getChronicleForPlayerAt(address player, uint chronicleNumber) public view returns(bytes32)
+    {
+        require(chronicleNumber < getNumChronicles(player));
+        return chronicles[player][chronicleNumber];
+    }
+
+    function addChronicle(bytes32 storageLocation, address playerAddress) public onlyIfValid()
+    {
+        chronicles[playerAddress].push(storageLocation);
     }
 }
