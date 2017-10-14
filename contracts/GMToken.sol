@@ -9,10 +9,12 @@ contract GMToken {
 
     mapping (address => GM) GMs; 
 
-    function newGM(address beneficiary, string name, int32 id) {
-    require(GMs[beneficiary].id == 0);
+    function newGM(string name, int32 id) {
+    require(GMs[tx.origin].id == 0);
     GMs[beneficiary] = GM(name, id);
     }
 
-    
+    function hasToken() returns (bool) {
+        return GMs[tx.origin].id > 0;
+    }
 }
