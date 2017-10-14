@@ -10,12 +10,18 @@ contract GMToken
         bool isValue;
     }
 
+    event GMAdded(
+        address indexed _from,
+        uint  _id,
+        string _name
+    );
+
     mapping (address => GM) GMs; 
 
-    function newGM(string name, uint id) public returns(uint) 
+    function newGM(string name, uint id) public
     {
         GMs[msg.sender] = GM(name, id, true);
-        return id;
+        GMAdded(msg.sender, id, name);
     }
 
     function deleteMyself() public
