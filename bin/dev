@@ -1,0 +1,25 @@
+#!/bin/bash
+
+bin_dir=`dirname $0`
+root_dir=`realpath $(dirname $bin_dir)`
+node_bin=$root_dir/node_modules/.bin/
+
+if ps aux | grep testrpc > /dev/null; then
+  pkill -f -9 testrpc
+fi
+$node_bin/testrpc 2>&1 > testrpc.log &
+sleep 1
+truffle migrate
+cp $root_dir/build/contracts/* $root_dir/src/data
+
+grep -A 12 "Available Accounts" testrpc.log
+grep -A 12 "Private Keys" testrpc.log
+
+echo "***************************************************"
+echo "Mnemonic is:"
+grep Mnemonic testrpc.log
+echo "***************************************************"
+
+if ! ps aux | grep lite-server | grep -v grep > /dev/null; then
+  $node_bin/lite-server --baseDir="$root_dir/src" 2>&1 > lite-server.log &
+fi

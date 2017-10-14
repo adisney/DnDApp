@@ -6,27 +6,27 @@ contract GMToken
     struct GM 
     {
         string name;
-        int32 id;
+        uint id;
+        bool isValue;
     }
 
     mapping (address => GM) GMs; 
 
-    function newGM(string name, int32 id) public returns(int32) 
+    function newGM(string name, uint id) public returns(uint) 
     {
-        require(GMs[tx.origin].id == 0);
-        require(id > 0);
-        GMs[tx.origin] = GM(name, id);
+        GMs[tx.origin] = GM(name, id, true);
         return id;
     }
 
-    function deleteMyself()
+    function deleteMyself() public
     {
-        delete(GMs[tx.origin]);
+        GMs[tx.origin] = GM("", 0, false);
     }
 
     function hasToken() public returns (bool) 
     {
-        return GMs[tx.origin].id > 0;
+        GM storage gm = GMs[tx.origin];
+        return gm.isValue;
     }
 
     function getName() public returns (string) 
@@ -36,12 +36,17 @@ contract GMToken
         return gm.name;
     }
 
-    function getID() public returns (int32)
+    function getID() public returns (uint)
     {
         GM storage gm = GMs[tx.origin];
         require(gm.id != 0);
         return gm.id;
     }
 
-    
+    function getIsValue() public returns (bool)
+    {
+        GM storage gm = GMs[tx.origin];
+        require(gm.id != 0);
+        return gm.isValue;
+    }
 }

@@ -1,2 +1,4 @@
 build/*
 node_modules/*
+lite-server.log
+testrpc.log
