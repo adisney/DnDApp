@@ -121,13 +121,14 @@ ChronicleView = {
     chronicle_data.slow = form.find('.slow-checkbox input').is(':checked');
 
     items = chronicle_data.items_found[chronicle_data.tierPlayed];
-    // maxGold = parseInt(chronicle_data.max_gold[chronicle_data.tierPlayed + (chronicle_data.slow ? "_slow" : "_fast")]);
+
+    maxGold = parseInt( chronicle_data.max_gold[chronicle_data.tierPlayed + (chronicle_data.slow ? "_slow" : "_fast")].replace(/,/g, ""));
     gpScenario = parseInt(form.find('#gp-scenario').val());
 
-    /* if (maxGold < gpScenario)
+    if (maxGold < gpScenario)
     {
       gpScenario = maxGold;
-    } */
+    } 
 
     // delete chronicle_data.items_found;
     // delete chronicle_data.max_gold;
@@ -198,6 +199,30 @@ PlayerView =
               if (err) {
                 console.log('Hmm.. there was an error: ' + String(err)); 
               } else {
+                chronicle_data = JSON.parse(result);
+                
+                _.each(chronicle_data.items, function(item){
+                  liItems = $('.templates .listing').clone();
+                  liItems.text(item);
+                  form.find('.items-available ul').append(liItems);
+                });
+
+                _.each(chronicle_data.boonsReceived, function(boon){
+                  liItems = $('.templates .listing').clone();
+                  liItems.text(boon);
+                  form.find('.boons ul').append(liItems);
+                });
+
+                xp = parseInt(chronicle_data.xpGained) + parseInt(form.find('.xp').text());
+                form.find('.xp').text(xp);
+
+                fame = parseInt(chronicle_data.fameGained) + parseInt(form.find('.fame').text());
+                form.find('.fame').text(fame);
+
+                gp = parseInt(chronicle_data.gpScenario) + parseInt(chronicle_data.gpDayJob) + 
+                  parseInt(form.find('.total-gold').text());
+                form.find('.total-gold').text(gp);
+
                 console.log("Found Hash:" + ipfsHash)
               }
             });
