@@ -28,6 +28,9 @@ GMTokenView = {
         ChronicleView.displayView(GMToken, ipfs);
       });
     });
+    $('.chronicle-container .player-button').click(function() {
+      PlayerView.displayView(GMToken, ipfs);
+    });
   },
 
   createGMToken: function(GMToken) {
