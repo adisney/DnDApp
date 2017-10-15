@@ -60,7 +60,7 @@ ChronicleView = {
   },
 
   initScenarioList: function(ipfs) {
-    var lookupHash = "QmTypZFT95yMZrbCe96vGaaidj83996FgqMfs59ubE848U";
+    var lookupHash = "QmPgDHDETWjZMHrZWAuoEmYKRycUZJah5cF9HHfJ5pPMGP";
 
     ipfs.cat(lookupHash, (err, result) => {
       if (err) {
