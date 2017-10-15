@@ -66,20 +66,20 @@ contract GMToken
 
 
     // TODO: This is max path length, update when we figure out what our real path limit is.
-    mapping (address => bytes32[]) chronicles; 
+    mapping (address => bytes[]) chronicles; 
 
     function getNumChronicles(address player) public view returns(uint)
     {
         return chronicles[player].length;
     }
 
-    function getChronicleForPlayerAt(address player, uint chronicleNumber) public view returns(bytes32)
+    function getChronicleForPlayerAt(address player, uint chronicleNumber) public view returns(bytes)
     {
         require(chronicleNumber < getNumChronicles(player));
         return chronicles[player][chronicleNumber];
     }
 
-    function addChronicle(bytes32 storageLocation, address playerAddress) public onlyIfValid()
+    function addChronicle(bytes storageLocation, address playerAddress) public onlyIfValid()
     {
         chronicles[playerAddress].push(storageLocation);
     }
