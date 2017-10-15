@@ -181,6 +181,7 @@ PlayerView =
     $('.chronicle-container .chronicle-register').remove();
     form = $(".templates .player-view").clone();
     $('.chronicle-container').append(form);
+    $('.jumbotron h1').text("Character Sheet");
     PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount, form);
 
    /* $('.chronicle-container .chronicle-submit').click(function() {
