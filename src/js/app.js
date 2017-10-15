@@ -33,12 +33,11 @@ App = {
   displayView: function() {
     App.GMToken.hasToken.call().then(function(res) {
       if (res) {
+        console.log(App.ipfs);
         ChronicleView.displayView(App.ipfs);
       } else {
-        GMTokenView.displayView(App.GMToken);
+        GMTokenView.displayView(App.GMToken, App.ipfs);
       }
-    }).catch(function(err) {
-      //noop
     });
   },
 };

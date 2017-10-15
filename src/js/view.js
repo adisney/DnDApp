@@ -1,10 +1,10 @@
 GMTokenView = {
-  displayView: function(GMToken) {
+  displayView: function(GMToken, ipfs) {
     form = $(".templates .gm-register").clone();
     $('.container').append(form);
     $('.container .gm-submit').click(function() {
       GMTokenView.createGMToken(GMToken).then(function() {
-        ChronicleView.displayView();
+        ChronicleView.displayView(ipfs);
       });
     });
   },
