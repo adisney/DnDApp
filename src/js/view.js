@@ -20,6 +20,7 @@ HomeView = {
 GMTokenView = {
   displayView: function(GMToken, ipfs) {
     $('.chronicle-container').empty();
+    $('.jumbotron h1').text("Register As GM");
     form = $(".templates .gm-register").clone();
     $('.chronicle-container').append(form);
     $('.chronicle-container .gm-submit').click(function() {
@@ -43,6 +44,7 @@ ChronicleView = {
     $('.chronicle-container .gm-register').remove();
     form = $(".templates .chronicle-register").clone();
     $('.chronicle-container').append(form);
+    $('.jumbotron h1').text("Record Session");
     ChronicleView.initScenarioList(ipfs);
 
     $('.chronicle-container .chronicle-submit').click(function() {
@@ -182,6 +184,15 @@ PlayerView =
     form = $(".templates .player-view").clone();
     $('.chronicle-container').append(form);
     $('.jumbotron h1').text("Character Sheet");
+    $('.chronicle-container .gm-button').click(function() {
+      GMToken.hasToken.call().then(function(res) {
+        if (res) {
+          ChronicleView.displayView(App.GMToken, App.ipfs);
+        } else {
+          GMTokenView.displayView(App.GMToken, App.ipfs);
+        }
+      });
+    });
     PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount, form);
 
    /* $('.chronicle-container .chronicle-submit').click(function() {
