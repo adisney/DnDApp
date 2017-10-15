@@ -49,19 +49,36 @@ ChronicleView = {
   },
 
   onScenarioChanged: function(ipfs, scenario, form) {
+    function initTierDropdown(chronicle) {
+      form.find(".tier-list").empty();
+      _.each(chronicle.tiers, function(tier) {
+        li = $('.templates .listing').clone();
+        li.text(tier);
+        li.click(function() {
+          form.find('#tier-dropdown .selected').text($(this).text());
+        });
+        form.find(".tier-list").append(li);
+      });
+    }
+
+    function initBoonCheckboxes(chronicle) {
+      form.find(".boons").empty();
+      _.each(chronicle.boons, function(boon) {
+        li = $('.templates .listing').clone();
+        checkbox = $(".templates .boon-checkbox").clone();
+        checkbox.find('.boon-name').text(boon);
+        li.append(checkbox);
+        form.find(".boons").append(li);
+      });
+    }
+
     ipfs.cat(scenario.location, function(err, response) {
       if (err) {
         console.log("Error getting chronicle: " + err);
       } else {
         chronicle = JSON.parse(response)[0];
-        _.each(chronicle.tiers, function(tier) {
-          li = $('.templates .listing').clone();
-          li.text(tier);
-          li.click(function() {
-            form.find('#tier-dropdown .selected').text($(this).text());
-          });
-          form.find(".tier-list").append(li);
-        });
+        initTierDropdown(chronicle);
+        initBoonCheckboxes(chronicle);
       }
     });
   },

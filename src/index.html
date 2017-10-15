@@ -41,6 +41,12 @@
       </div>
 
       <li class='listing'></li>
+      <div class='input-group boon-checkbox checkbox'>
+        <label>
+          <input type='checkbox' name=''/>
+          <span class='boon-name'>Boon</span>
+        </label>
+      </div>
 
       <div class='row chronicle-register'>
         <div class='form-horizontal'>
@@ -60,8 +66,11 @@
             </div>
           </div>
           <div class='form-group'>
-            <label for='slow'>Slow Progression</label>
-            <input type='checkbox' id='slow' name='' class='form-control' />
+            <div class='checkbox'>
+              <label for='slow'>
+                <input type='checkbox' id='slow'/>Slow Progression
+              </label>
+            </div>
           </div>
           <div class='form-group'>
             <label for='xp'>XP Gained</label>
@@ -92,7 +101,8 @@
           </div>
           <div class='form-group'>
             <label for='boon'>Boons Awarded</label>
-            <input type='number' id='boon' name='' class='form-control' />
+            <ul class='boons list-unstyled'>
+            </ul>
           </div>
           <button class='button btn btn-primary chronicle-submit' value='' name=''>Submit</button>
         </div>
