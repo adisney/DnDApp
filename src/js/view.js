@@ -154,11 +154,17 @@ ChronicleView = {
     console.log(chronicle_data);
     return ipfs.add(JSON.stringify(chronicle_data), function(err, result) {
       if (err) {
+        form.find('.alert').addClass('alert-danger').text("There was an error sending your chronicle sheet! Please try again.").show();
         console.log("Something broke: " + err);
       } else {
         hash = result;
-        buf32Hash = ChronicleView.ipfsHashToBytes32(hash);
-        GMToken.addChronicle(buf32Hash, form.find('#player-address').val());
+        buf32Hash = ChronicleView.ipfsHashToBytes32(hash + "a");
+        GMToken.addChronicle(buf32Hash, form.find('#player-address').val())
+          .then(function(err, res) {
+            form.find('.alert').addClass('alert-success').text("Chronicle sent!").show();
+          }).catch(function(err) {
+            form.find('.alert').addClass('alert-danger').text("There was an error sending your chronicle sheet! Please try again.").show();
+          });
         console.log("Added file at hash: " + hash);
       }
     });
@@ -199,10 +205,6 @@ PlayerView =
       });
     });
     PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount, form);
-
-   /* $('.chronicle-container .chronicle-submit').click(function() {
-      ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
-    });*/
   },
 
   getHashesFromAddress(GMToken, ipfs, myAccount, form) {
