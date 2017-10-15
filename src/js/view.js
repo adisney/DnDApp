@@ -4,7 +4,7 @@ GMTokenView = {
     $('.container').append(form);
     $('.container .gm-submit').click(function() {
       GMTokenView.createGMToken(GMToken).then(function() {
-        ChronicleView.displayView(ipfs);
+        ChronicleView.displayView(GMToken, ipfs);
       });
     });
   },
@@ -16,14 +16,14 @@ GMTokenView = {
 }
 
 ChronicleView = {
-  displayView: function(ipfs) {
+  displayView: function(GMToken, ipfs) {
     $('.container .gm-register').remove();
     form = $(".templates .chronicle-register").clone();
     $('.container').append(form);
     ChronicleView.initScenarioList(ipfs);
 
     $('.container .chronicle-submit').click(function() {
-      ChronicleView.pushChronicleToIPFS(ipfs);
+      ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
     });
   },
 
@@ -50,7 +50,7 @@ ChronicleView = {
 
   },
 
-  pushChronicleToIPFS : function(ipfs) {
+  pushChronicleToIPFS : function(GMToken, ipfs) {
     console.log('push to ipfs');
     form = $('.container .chronicle-register');
     chronicle_data = {};
@@ -65,9 +65,26 @@ ChronicleView = {
         console.log("Something broke: " + err);
       } else {
         hash = result;
+        buf32Hash = ChronicleView.ipfsHashToBytes32(hash);
+        GMToken.addChronicle(buf32Hash, form.find('#player-address').val());
         console.log("Added file at hash: " + hash);
         // Invoke addChronicle on contract
       }
     });
-  }
+  },
+
+  ipfsHashToBytes32(ipfs_hash) {
+    var h = bs58.decode(ipfs_hash).toString('hex').replace(/^1220/, '');
+    if (h.length != 64) {
+        console.log('invalid ipfs format', ipfs_hash, h);
+        return null;
+    }
+    return '0x' + h;
+},
+
+bytes32ToIPFSHash(hash_hex) {
+    //console.log('bytes32ToIPFSHash starts with hash_buffer', hash_hex.replace(/^0x/, ''));
+    var buf = new Buffer(hash_hex.replace(/^0x/, '1220'), 'hex')
+    return bs58.encode(buf)
+}
 }
