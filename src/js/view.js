@@ -158,7 +158,7 @@ ChronicleView = {
         console.log("Something broke: " + err);
       } else {
         hash = result;
-        buf32Hash = ChronicleView.ipfsHashToBytes32(hash + "a");
+        buf32Hash = ChronicleView.ipfsHashToBytes32(hash);
         GMToken.addChronicle(buf32Hash, form.find('#player-address').val())
           .then(function(err, res) {
             form.find('.alert').addClass('alert-success').text("Chronicle sent!").show();
