@@ -1,3 +1,7 @@
 .templates {
   display: none;
 }
+
+.big-button {
+  font-size: 100px;
+}
