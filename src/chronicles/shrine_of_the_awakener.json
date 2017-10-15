@@ -1,0 +1,12 @@
+[
+  {
+    "title": "The Emerald Spire Superdungeon: Shrine of the Awakener",
+    "tiers": ["5-7],
+    "boons": [ "River Kingdom Notoriety", "Secrets of Serpent Magic" ],
+    "items_found": [ "minor ring of fire resistance (12,000 gp)", "spire transport token (600 gp, limit 1; allows a PC to use the Emerald Spire's transport function to reach the surface)." ],
+    "max_gold": {
+                  "5-7_slow": "4,356",
+                  "5-7_fast": "8,712"
+                }
+  }
+]

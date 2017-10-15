@@ -1,0 +1,15 @@
+[
+  {
+    "title": "shades_of_ice_part_1_written_in_blood",
+    "tiers": ["1-2", "4-5"],
+    "boons": [ "potion_of_owl's_wisdom (300 gp)", "wand_of_magic_missile (CL 1st, 15 charges; 225 gp)" ],
+    "items_found":  {
+                      "1-2":["Potion of owl's wisdom (300gp)", "Wand of magic missile (CL 1st, 15 charges; 225gp"],
+                      "4-5":[ "Potion of bull's strength (300 gp)", "Potion of cure moderate wounds (300 gp)", "Potion of eagle's splendor (300 gp)" ]
+                    },
+    "max_gold": {
+                  "1-2": "500",
+                  "4-5": "1844"
+                }
+  }
+]
