@@ -28,26 +28,42 @@ ChronicleView = {
   },
 
   initScenarioList: function(ipfs) {
-    console.log("Getting scenarios");
-    
-    var lookupHash = "QmRFYddkKY2hWXrfkcAE5FCMe785DjHFyXa8CwL24uctGE";
+    var lookupHash = "QmRyEAukZR4ZPyZNfFZg3c78AdmMKfYpuPU4PkedPu8YcN";
     
     ipfs.cat(lookupHash, (err, result) => {
       if (err) {
         console.log('Hmm.. there was an error: ' + String(err)); 
       } else {
-        jsonified = JSON.parse(result);
-        _.each(jsonified, function(scenario) {
-          li = $('.templates .scenario-listing').clone();
+        scenarios = _.sortBy(JSON.parse(result), function(scenario) { return scenario.name });
+        _.each(scenarios , function(scenario) {
+          li = $('.templates .listing').clone();
           li.text(scenario.name);
           li.click(function() {
-            form.find('.selected').text($(this).text());
+            form.find('#scenario-dropdown .selected').text($(this).text());
+            ChronicleView.onScenarioChanged(ipfs, scenario, form);
           });
           form.find('.scenario-list').append(li);
         });
       }
     });
+  },
 
+  onScenarioChanged: function(ipfs, scenario, form) {
+    ipfs.cat(scenario.location, function(err, response) {
+      if (err) {
+        console.log("Error getting chronicle: " + err);
+      } else {
+        chronicle = JSON.parse(response)[0];
+        _.each(chronicle.tiers, function(tier) {
+          li = $('.templates .listing').clone();
+          li.text(tier);
+          li.click(function() {
+            form.find('#tier-dropdown .selected').text($(this).text());
+          });
+          form.find(".tier-list").append(li);
+        });
+      }
+    });
   },
 
   pushChronicleToIPFS : function(GMToken, ipfs) {
@@ -68,7 +84,6 @@ ChronicleView = {
         buf32Hash = ChronicleView.ipfsHashToBytes32(hash);
         GMToken.addChronicle(buf32Hash, form.find('#player-address').val());
         console.log("Added file at hash: " + hash);
-        // Invoke addChronicle on contract
       }
     });
   },
