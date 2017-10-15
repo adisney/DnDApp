@@ -1,8 +1,28 @@
+HomeView = {
+  displayView: function(GMToken, ipfs) {
+    form = $(".templates .home-view").clone();
+    form.find('.gm-button').click(function() {
+      GMToken.hasToken.call().then(function(res) {
+        if (res) {
+          ChronicleView.displayView(App.GMToken, App.ipfs);
+        } else {
+          GMTokenView.displayView(App.GMToken, App.ipfs);
+        }
+      });
+    });
+    form.find('.player-button').click(function() {
+      PlayerView.displayView(GMToken, ipfs);
+    });
+    $('.chronicle-container').append(form);
+  }
+}
+
 GMTokenView = {
   displayView: function(GMToken, ipfs) {
+    $('.chronicle-container').empty();
     form = $(".templates .gm-register").clone();
-    $('.container').append(form);
-    $('.container .gm-submit').click(function() {
+    $('.chronicle-container').append(form);
+    $('.chronicle-container .gm-submit').click(function() {
       GMTokenView.createGMToken(GMToken).then(function() {
         ChronicleView.displayView(GMToken, ipfs);
       });
@@ -10,7 +30,7 @@ GMTokenView = {
   },
 
   createGMToken: function(GMToken) {
-    form = $('.container .gm-register');
+    form = $('.chronicle-container .gm-register');
     return GMToken.newGM(form.find(".gm-name").val(), parseInt(form.find(".gm-id").val()));
   },
 }
@@ -19,16 +39,17 @@ ChronicleView = {
   currentChronicle: {},
 
   displayView: function(GMToken, ipfs) {
-    $('.container .gm-register').remove();
+    $('.chronicle-container').empty();
+    $('.chronicle-container .gm-register').remove();
     form = $(".templates .chronicle-register").clone();
-    $('.container').append(form);
+    $('.chronicle-container').append(form);
     ChronicleView.initScenarioList(ipfs);
 
-    $('.container .chronicle-submit').click(function() {
+    $('.chronicle-container .chronicle-submit').click(function() {
       ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
     });
 
-    $('.container .player-switch').click(function() {
+    $('.chronicle-container .player-switch').click(function() {
       PlayerView.displayView(GMToken, ipfs);
     });
   },
@@ -92,7 +113,7 @@ ChronicleView = {
 
   pushChronicleToIPFS : function(GMToken, ipfs) {
     console.log('push to ipfs');
-    form = $('.container .chronicle-register');
+    form = $('.chronicle-container .chronicle-register');
     chronicle_data = ChronicleView.currentChronicle;
     chronicle_data.slow = form.find('.slow-checkbox input').is(':checked');
     chronicle_data.xpGained = form.find('#xp').val();
@@ -135,13 +156,14 @@ ChronicleView = {
 PlayerView = 
 {
   displayView: function(GMToken, ipfs) {
-    $('.container .gm-register').remove();
-    $('.container .chronicle-register').remove();
+    $('.chronicle-container').empty();
+    $('.chronicle-container .gm-register').remove();
+    $('.chronicle-container .chronicle-register').remove();
     form = $(".templates .player-view").clone();
-    $('.container').append(form);
+    $('.chronicle-container').append(form);
     PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount);
 
-   /* $('.container .chronicle-submit').click(function() {
+   /* $('.chronicle-container .chronicle-submit').click(function() {
       ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
     });*/
   },
@@ -161,7 +183,7 @@ PlayerView =
                 console.log('Hmm.. there was an error: ' + String(err)); 
               } else {
                 form.text(result);
-                $('.container').append(form);
+                $('.chronicle-container').append(form);
                 console.log("Found Hash:" + ipfsHash)
               }
             });
