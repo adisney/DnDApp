@@ -23,9 +23,7 @@ ChronicleView = {
     ChronicleView.initScenarioList(ipfs);
 
     $('.container .chronicle-submit').click(function() {
-    /*  ChronicleView.pushChronicleToIPFS().then(function() {
-        console.log('we pushed it to ipfs?');
-      });*/
+      ChronicleView.pushChronicleToIPFS(ipfs);
     });
   },
 
@@ -38,7 +36,6 @@ ChronicleView = {
       if (err) {
         console.log('Hmm.. there was an error: ' + String(err)); 
       } else {
-        console.log(result);
         jsonified = JSON.parse(result);
         _.each(jsonified, function(scenario) {
           li = $('.templates .scenario-listing').clone();
@@ -56,5 +53,21 @@ ChronicleView = {
   pushChronicleToIPFS : function(ipfs) {
     console.log('push to ipfs');
     form = $('.container .chronicle-register');
-    }
+    chronicle_data = {};
+    chronicle_data.xpGained = form.find('#xp').val();
+    chronicle_data.fameGained = form.find('#fame').val();
+    chronicle_data.gpScenario = form.find('#gp-scenario').val();
+    chronicle_data.gpDayJob = form.find('#gp-day-job').val();
+    chronicle_data.tier = form.find('#tier').val();
+    console.log(chronicle_data);
+    return ipfs.add(JSON.stringify(chronicle_data), function(err, result) {
+      if (err) {
+        console.log("Something broke: " + err);
+      } else {
+        hash = result;
+        console.log("Added file at hash: " + hash);
+        // Invoke addChronicle on contract
+      }
+    });
+  }
 }
