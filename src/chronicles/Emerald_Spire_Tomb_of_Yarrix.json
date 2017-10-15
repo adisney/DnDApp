@@ -1,11 +1,12 @@
 [
   {
     "title": "pathfinder_module: the emerald spire superdungeon: the tomb of yarrix",
+    "tiers": ["8-10"]
     "boons": [ "river_kingdom_notoriety", "temporal_acceleration", "time_dilation" ],
     "items_found": [ "+3 heavy shield (9,170 gp)", "ring of protection +2 (8,000 gp)", "spire transport token (600 gp, limit 1; allows a pc to use the emerald spire's function to reach the surface)", "staff of fire (18,950 gp)" ],
     "max_gold": {
-                  "subtier_8_10_slow": "8,883",
-                  "subtier_8_10_fast": "17,776"
+                  "8_10_slow": "8,883",
+                  "8_10_fast": "17,776"
                 }
   }
 ]
