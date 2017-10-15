@@ -87,7 +87,8 @@ module.exports = function base (ALPHABET) {
   return {
     encode: encode,
     decodeUnsafe: decodeUnsafe,
-    decode: decode
+    decode: decode,
+    Buffer: Buffer
   }
 }
 

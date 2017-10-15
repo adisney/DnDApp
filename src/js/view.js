@@ -84,7 +84,7 @@ ChronicleView = {
 
 bytes32ToIPFSHash(hash_hex) {
     //console.log('bytes32ToIPFSHash starts with hash_buffer', hash_hex.replace(/^0x/, ''));
-    var buf = new Buffer(hash_hex.replace(/^0x/, '1220'), 'hex')
+    var buf = new bs58.Buffer(hash_hex.replace(/^0x/, '1220'), 'hex')
     return bs58.encode(buf)
 }
 }
