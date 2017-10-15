@@ -203,12 +203,14 @@ PlayerView =
                 
                 _.each(chronicle_data.items, function(item){
                   liItems = $('.templates .listing').clone();
+                  liItems.addClass('list-group-item');
                   liItems.text(item);
                   form.find('.items-available ul').append(liItems);
                 });
 
                 _.each(chronicle_data.boonsReceived, function(boon){
                   liItems = $('.templates .listing').clone();
+                  liItems.addClass('list-group-item');
                   liItems.text(boon);
                   form.find('.boons ul').append(liItems);
                 });
