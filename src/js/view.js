@@ -119,6 +119,8 @@ ChronicleView = {
     // delete chronicle_data.tiers;
     chronicle_data.tierPlayed = form.find('.tier-dropdown .selected').text();
     chronicle_data.slow = form.find('.slow-checkbox input').is(':checked');
+    chronicle_data.characterName = form.find('#character-name').val();
+    chronicle_data.characterClass = form.find('#character-class').val();
 
     items = chronicle_data.items_found[chronicle_data.tierPlayed];
 
@@ -224,6 +226,13 @@ PlayerView =
                 gp = parseInt(chronicle_data.gpScenario) + parseInt(chronicle_data.gpDayJob) + 
                   parseInt(form.find('.total-gold').text());
                 form.find('.total-gold').text(gp);
+
+                form.find('.level').text( Math.min(Math.floor(xp / 3) + 1, 20));
+
+                if (!form.find('.name').text()){
+                  form.find('.name').text(chronicle_data.characterName);
+                  form.find('.class').text(chronicle_data.characterClass);
+                }
 
                 console.log("Found Hash:" + ipfsHash)
               }

@@ -31,8 +31,8 @@ App = {
   },
 
   displayView: function() {
-    PlayerView.displayView(App.GMToken, App.ipfs);
-    //HomeView.displayView(App.GMToken, App.ipfs);
+    //PlayerView.displayView(App.GMToken, App.ipfs);
+    HomeView.displayView(App.GMToken, App.ipfs);
   },
 };
 
