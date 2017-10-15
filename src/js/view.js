@@ -88,3 +88,26 @@ bytes32ToIPFSHash(hash_hex) {
     return bs58.encode(buf)
 }
 }
+
+PlayerView = 
+{
+  getHashesFromAddress(GMToken, userAddress) {
+    numChronicles = GMToken.getNumChronicles.call(userAddress).then(function(result) {
+      bnResult = new BigNumber(result);
+      var bnIterator = new BigNumber(0);
+      if (bnResult > 0) {
+        for (; bnIterator.lessThan(bnResult); bnIterator = bnIterator.add(1)) {
+          GMToken.getChronicleForPlayerAt.call(userAddress, bnIterator.toNumber()).then(function(result) {
+            ipfsHash = ChronicleView.bytes32ToIPFSHash(result);
+            console.log("Found Hash:" + ipfsHash)
+          });
+        }
+      }
+      else
+      {
+        console.log("You don't have any chronicles.");
+      }
+    });
+  }
+}
+
