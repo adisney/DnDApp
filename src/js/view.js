@@ -60,7 +60,7 @@ ChronicleView = {
   },
 
   initScenarioList: function(ipfs) {
-    var lookupHash = "QmPgDHDETWjZMHrZWAuoEmYKRycUZJah5cF9HHfJ5pPMGP";
+    var lookupHash = "QmQDWye3YnbEA1mySHYXGJrjHxwiPcQFYNptKhyNuhvMEy";
 
     ipfs.cat(lookupHash, (err, result) => {
       if (err) {
@@ -232,7 +232,7 @@ PlayerView =
                 _.each(chronicle_data.boonsReceived, function(boon){
                   liItems = $('.templates .listing').clone();
                   liItems.addClass('list-group-item');
-                  liItems.text(boon);
+                  liItems.text(boon + " - " + chronicle_data.title);
                   form.find('.boons ul').append(liItems);
                 });
 
