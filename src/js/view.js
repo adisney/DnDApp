@@ -21,6 +21,12 @@ ChronicleView = {
     form = $(".templates .chronicle-register").clone();
     $('.container').append(form);
     ChronicleView.initScenarioList(ipfs);
+
+    $('.container .chronicle-submit').click(function() {
+    /*  ChronicleView.pushChronicleToIPFS().then(function() {
+        console.log('we pushed it to ipfs?');
+      });*/
+    });
   },
 
   initScenarioList: function(ipfs) {
@@ -44,5 +50,11 @@ ChronicleView = {
         });
       }
     });
-  }
+
+  },
+
+  pushChronicleToIPFS : function(ipfs) {
+    console.log('push to ipfs');
+    form = $('.container .chronicle-register');
+    }
 }
