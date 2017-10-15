@@ -8,8 +8,10 @@
                       "4-5":[ "Potion of bull's strength (300 gp)", "Potion of cure moderate wounds (300 gp)", "Potion of eagle's splendor (300 gp)" ]
                     },
     "max_gold": {
-                  "1-2": "500",
-                  "4-5": "1844"
+                  "1-2_slow": "250",
+                  "1-2_fast": "500",
+                  "4-5_fast": "1844",
+                  "4-5_slow": "922"
                 }
   }
 ]
