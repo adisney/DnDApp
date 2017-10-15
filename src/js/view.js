@@ -114,13 +114,30 @@ ChronicleView = {
   pushChronicleToIPFS : function(GMToken, ipfs) {
     console.log('push to ipfs');
     form = $('.chronicle-container .chronicle-register');
-    chronicle_data = ChronicleView.currentChronicle;
+    chronicle_data = $.extend({}, ChronicleView.currentChronicle);
+    // delete chronicle_data.boons;
+    // delete chronicle_data.tiers;
+    chronicle_data.tierPlayed = form.find('.tier-dropdown .selected').text();
     chronicle_data.slow = form.find('.slow-checkbox input').is(':checked');
+
+    items = chronicle_data.items_found[chronicle_data.tierPlayed];
+    // maxGold = parseInt(chronicle_data.max_gold[chronicle_data.tierPlayed + (chronicle_data.slow ? "_slow" : "_fast")]);
+    gpScenario = parseInt(form.find('#gp-scenario').val());
+
+    /* if (maxGold < gpScenario)
+    {
+      gpScenario = maxGold;
+    } */
+
+    // delete chronicle_data.items_found;
+    // delete chronicle_data.max_gold;
+
+    chronicle_data.items = items;
     chronicle_data.xpGained = form.find('#xp').val();
     chronicle_data.fameGained = form.find('#fame').val();
-    chronicle_data.gpScenario = form.find('#gp-scenario').val();
+    chronicle_data.gpScenario = gpScenario;
     chronicle_data.gpDayJob = form.find('#gp-day-job').val();
-    chronicle_data.tierPlayed = form.find('.tier-dropdown .selected').text();
+    
     chronicle_data.boonsReceived = _.map(form.find('.boons input:checkbox:checked'), function(cb) {
       return $(cb).parent().find('.boon-name').text();
     });
