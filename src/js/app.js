@@ -34,7 +34,7 @@ App = {
     App.GMToken.hasToken.call().then(function(res) {
       if (res) {
         console.log(App.ipfs);
-        ChronicleView.displayView(App.ipfs);
+        ChronicleView.displayView(App.GMToken, App.ipfs);
       } else {
         GMTokenView.displayView(App.GMToken, App.ipfs);
       }
