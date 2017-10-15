@@ -4,4 +4,13 @@
 
 .big-button {
   font-size: 100px;
+  width: 35%;
+}
+
+html { 
+background: url(../img/background.jpg) no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
 }
