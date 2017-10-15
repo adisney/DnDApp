@@ -37,11 +37,12 @@ ChronicleView = {
         _.each(jsonified, function(scenario) {
           li = $('.templates .scenario-listing').clone();
           li.text(scenario.name);
-          $('.scenario-list').append(li);
+          li.click(function() {
+            form.find('.selected').text($(this).text());
+          });
+          form.find('.scenario-list').append(li);
         });
       }
     });
-
-     console.log("here");
   }
 }

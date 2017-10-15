@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Chronicle Token</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,12 +43,12 @@
       <li class='scenario-listing'></li>
 
       <div class='row chronicle-register'>
-        <form class='form-horizontal'>
+        <div class='form-horizontal'>
           <div class='form-group'>
             <label for='scenario'>Scenario</label>
             <div class='dropdown'>
               <button class="btn btn-default dropdown-toggle" type="button" id="scenario-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Scenario
+                <span class='selected'>Scenario</span>
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu scenario-list" aria-labelledby="scenario-dropdown">
@@ -82,7 +81,7 @@
           </div>
           <button class='button btn btn-primary chronicle-submit' value='' name=''>Submit</button>
         </div>
-      </form>
+      </div >
 
       <div class='no-contract'>
         <h1>The Chronicle Token contract does not exist on your current chain.</h1>
@@ -100,6 +99,5 @@
     <script src="js/app.js"></script>
     <script src="js/view.js"></script>
     <script src="js/ipfs-mini.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/app.css">
   </body>
 </html>
