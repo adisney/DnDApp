@@ -1,3 +1,8 @@
+body{
+  margin: 0 auto;
+  width: 80%;
+}
+
 .templates {
   display: none;
 }
@@ -27,6 +32,16 @@
 
 .list-group-item {
   border: 2px solid !important;
+  width: 95% !important;
+}
+
+.badge {
+  width:100px; /* you can use % */
+  height: auto;
+}
+
+.jumbotron {
+  border: 5px solid !important;
 }
 
 html { 
