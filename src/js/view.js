@@ -35,7 +35,7 @@ ChronicleView = {
 
   initScenarioList: function(ipfs) {
     var lookupHash = "QmRyEAukZR4ZPyZNfFZg3c78AdmMKfYpuPU4PkedPu8YcN";
-    
+
     ipfs.cat(lookupHash, (err, result) => {
       if (err) {
         console.log('Hmm.. there was an error: ' + String(err)); 
@@ -119,17 +119,17 @@ ChronicleView = {
   ipfsHashToBytes32(ipfs_hash) {
     var h = bs58.decode(ipfs_hash).toString('hex').replace(/^1220/, '');
     if (h.length != 64) {
-        console.log('invalid ipfs format', ipfs_hash, h);
-        return null;
+      console.log('invalid ipfs format', ipfs_hash, h);
+      return null;
     }
     return '0x' + h;
-},
+  },
 
-bytes32ToIPFSHash(hash_hex) {
+  bytes32ToIPFSHash(hash_hex) {
     //console.log('bytes32ToIPFSHash starts with hash_buffer', hash_hex.replace(/^0x/, ''));
     var buf = new bs58.Buffer(hash_hex.replace(/^0x/, '1220'), 'hex')
     return bs58.encode(buf)
-}
+  }
 }
 
 PlayerView = 
