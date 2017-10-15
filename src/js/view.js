@@ -242,7 +242,9 @@ PlayerView =
                 fame = parseInt(chronicle_data.fameGained) + parseInt(form.find('.fame').text());
                 form.find('.fame').text(fame);
 
-                gp = parseInt(chronicle_data.gpScenario) + parseInt(chronicle_data.gpDayJob) + 
+                gpScenario = parseInt(chronicle_data.gpScenario)
+                gpDayJob = parseInt(chronicle_data.gpDayJob)
+                gp = (gpScenario ? gpScenario : 0.0) + (gpDayJob ? gpDayJob : 0.0) + 
                   parseInt(form.find('.total-gold').text());
                 form.find('.total-gold').text(gp);
 
