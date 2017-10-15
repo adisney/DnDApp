@@ -16,6 +16,8 @@ GMTokenView = {
 }
 
 ChronicleView = {
+  currentChronicle: {},
+
   displayView: function(GMToken, ipfs) {
     $('.container .gm-register').remove();
     form = $(".templates .chronicle-register").clone();
@@ -83,6 +85,7 @@ ChronicleView = {
         chronicle = JSON.parse(response)[0];
         initTierDropdown(chronicle);
         initBoonCheckboxes(chronicle);
+        ChronicleView.currentChronicle = chronicle;
       }
     });
   },
@@ -90,12 +93,16 @@ ChronicleView = {
   pushChronicleToIPFS : function(GMToken, ipfs) {
     console.log('push to ipfs');
     form = $('.container .chronicle-register');
-    chronicle_data = {};
+    chronicle_data = ChronicleView.currentChronicle;
+    chronicle_data.slow = form.find('.slow-checkbox input').is(':checked');
     chronicle_data.xpGained = form.find('#xp').val();
     chronicle_data.fameGained = form.find('#fame').val();
     chronicle_data.gpScenario = form.find('#gp-scenario').val();
     chronicle_data.gpDayJob = form.find('#gp-day-job').val();
-    chronicle_data.tier = form.find('#tier').val();
+    chronicle_data.tierPlayed = form.find('.tier-dropdown .selected').text();
+    chronicle_data.boonsReceived = _.map(form.find('.boons input:checkbox:checked'), function(cb) {
+      return $(cb).parent().find('.boon-name').text();
+    });
     console.log(chronicle_data);
     return ipfs.add(JSON.stringify(chronicle_data), function(err, result) {
       if (err) {
