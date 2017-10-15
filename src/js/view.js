@@ -25,6 +25,10 @@ ChronicleView = {
     $('.container .chronicle-submit').click(function() {
       ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
     });
+
+    $('.container .player-switch').click(function() {
+      PlayerView.displayView(GMToken, ipfs);
+    });
   },
 
   initScenarioList: function(ipfs) {
@@ -123,15 +127,37 @@ bytes32ToIPFSHash(hash_hex) {
 
 PlayerView = 
 {
-  getHashesFromAddress(GMToken, userAddress) {
-    numChronicles = GMToken.getNumChronicles.call(userAddress).then(function(result) {
+  displayView: function(GMToken, ipfs) {
+    $('.container .gm-register').remove();
+    $('.container .chronicle-register').remove();
+    form = $(".templates .player-view").clone();
+    $('.container').append(form);
+    PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount);
+
+   /* $('.container .chronicle-submit').click(function() {
+      ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
+    });*/
+  },
+
+  getHashesFromAddress(GMToken, ipfs, myAccount) {
+    numChronicles = GMToken.getNumChronicles.call(myAccount).then(function(result) {
       bnResult = new BigNumber(result);
       var bnIterator = new BigNumber(0);
       if (bnResult > 0) {
-        for (; bnIterator.lessThan(bnResult); bnIterator = bnIterator.add(1)) {
-          GMToken.getChronicleForPlayerAt.call(userAddress, bnIterator.toNumber()).then(function(result) {
+        for (; bnIterator.lessThan(bnResult); bnIterator = bnIterator.plus(1)) {
+          shittyNumber = bnIterator.toNumber();
+          GMToken.getChronicleForPlayerAt.call(myAccount, shittyNumber).then(function(result) {
             ipfsHash = ChronicleView.bytes32ToIPFSHash(result);
-            console.log("Found Hash:" + ipfsHash)
+            form = $(".templates .player-view").clone();
+            ipfs.cat(ipfsHash, (err, result) => {
+              if (err) {
+                console.log('Hmm.. there was an error: ' + String(err)); 
+              } else {
+                form.text(result);
+                $('.container').append(form);
+                console.log("Found Hash:" + ipfsHash)
+              }
+            });
           });
         }
       }
