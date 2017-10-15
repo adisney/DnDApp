@@ -2,6 +2,7 @@ App = {
   web3Provider: null,
   contracts: {},
   GMToken: null,
+  ipfs: null,
 
   init: function() {
     return App.initWeb3();
@@ -32,7 +33,7 @@ App = {
   displayView: function() {
     App.GMToken.hasToken.call().then(function(res) {
       if (res) {
-        ChronicleView.displayView();
+        ChronicleView.displayView(App.ipfs);
       } else {
         GMTokenView.displayView(App.GMToken);
       }
@@ -47,6 +48,7 @@ $(function() {
     App.init().then(function() {
       App.contracts.GMToken.deployed().then(function(instance) {
         App.GMToken = instance;
+        App.ipfs = new IPFS({ host: 'ipfs.infura.io', protocol: 'https' });
         App.displayView();
       })
       .catch(function(err) {
