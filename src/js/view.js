@@ -178,14 +178,14 @@ PlayerView =
     $('.chronicle-container .chronicle-register').remove();
     form = $(".templates .player-view").clone();
     $('.chronicle-container').append(form);
-    PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount);
+    PlayerView.getHashesFromAddress(GMToken, ipfs, web3.eth.defaultAccount, form);
 
    /* $('.chronicle-container .chronicle-submit').click(function() {
       ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
     });*/
   },
 
-  getHashesFromAddress(GMToken, ipfs, myAccount) {
+  getHashesFromAddress(GMToken, ipfs, myAccount, form) {
     numChronicles = GMToken.getNumChronicles.call(myAccount).then(function(result) {
       bnResult = new BigNumber(result);
       var bnIterator = new BigNumber(0);
@@ -194,7 +194,6 @@ PlayerView =
           shittyNumber = bnIterator.toNumber();
           GMToken.getChronicleForPlayerAt.call(myAccount, shittyNumber).then(function(result) {
             ipfsHash = ChronicleView.bytes32ToIPFSHash(result);
-            form = $(".templates .player-view").clone();
             ipfs.cat(ipfsHash, (err, result) => {
               if (err) {
                 console.log('Hmm.. there was an error: ' + String(err)); 
