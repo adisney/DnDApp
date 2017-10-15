@@ -199,8 +199,6 @@ PlayerView =
               if (err) {
                 console.log('Hmm.. there was an error: ' + String(err)); 
               } else {
-                form.text(result);
-                $('.chronicle-container').append(form);
                 console.log("Found Hash:" + ipfsHash)
               }
             });
