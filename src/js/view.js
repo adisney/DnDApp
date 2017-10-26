@@ -69,7 +69,7 @@ ChronicleView = {
         scenarios = _.sortBy(JSON.parse(result), function(scenario) { return scenario.name });
         _.each(scenarios , function(scenario) {
           li = $('.templates .listing').clone();
-          a = $("<a>").attr("role", "menuitem").attr("href", "#").text(scenario.name);
+          a = $("<a>").attr("role", "menuitem").text(scenario.name);
           li.append(a);
           li.click(function() {
             form.find('#scenario-dropdown .selected').text($(this).text());
@@ -86,7 +86,7 @@ ChronicleView = {
       form.find(".tier-list").empty();
       _.each(chronicle.tiers, function(tier) {
         li = $('.templates .listing').clone();
-        a = $("<a>").attr("role", "menuitem").attr("href", "#").text(tier);
+        a = $("<a>").attr("role", "menuitem").text(tier);
         li.append(a);
         li.click(function() {
           form.find('#tier-dropdown .selected').text($(this).text());

@@ -44,6 +44,10 @@ body{
   border: 5px solid !important;
 }
 
+input[type=text] {
+  width: 70%;
+}
+
 html { 
 background: url(../img/background.jpg) no-repeat center center fixed; 
 -webkit-background-size: cover;
