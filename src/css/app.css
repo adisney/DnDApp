@@ -44,6 +44,12 @@ body{
   border: 5px solid !important;
 }
 
+.loading {
+  width: 100px;
+  height: auto;
+  margin: -33px;
+}
+
 input[type=text] {
   width: 70%;
 }

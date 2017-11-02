@@ -24,6 +24,7 @@ GMTokenView = {
     form = $(".templates .gm-register").clone();
     $('.chronicle-container').append(form);
     $('.chronicle-container .gm-submit').click(function() {
+      form.find('.loading').show();
       GMTokenView.createGMToken(GMToken).then(function() {
         ChronicleView.displayView(GMToken, ipfs);
       });
@@ -51,6 +52,7 @@ ChronicleView = {
     ChronicleView.initScenarioList(ipfs);
 
     $('.chronicle-container .chronicle-submit').click(function() {
+      form.find('.loading').show();
       ChronicleView.pushChronicleToIPFS(GMToken, ipfs);
     });
 
@@ -161,8 +163,10 @@ ChronicleView = {
         buf32Hash = ChronicleView.ipfsHashToBytes32(hash);
         GMToken.addChronicle(buf32Hash, form.find('#player-address').val())
           .then(function(err, res) {
+            form.find('.loading').hide();
             form.find('.alert').addClass('alert-success').text("Chronicle sent!").show();
           }).catch(function(err) {
+            form.find('.loading').hide();
             form.find('.alert').addClass('alert-danger').text("There was an error sending your chronicle sheet! Please try again.").show();
           });
         console.log("Added file at hash: " + hash);
